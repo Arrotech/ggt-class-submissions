@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}New SQL session · SQL Power Hour{% endblock %}
+
+{% block content %}
+<div class="dashboard-heading">
+  <div>
+    <div class="eyebrow">YOUR LEARNING JOURNAL</div>
+    <h1>Capture today's SQL practice</h1>
+    <p class="muted">Keep your approach beside the solution so you can revise how you reasoned.</p>
+  </div>
+</div>
+
+{% if repositories %}
+<form action="/publish" method="post" class="practice-form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <section class="form-section session-details">
+    <div class="section-heading"><span class="step">01</span><div><h2>Study session</h2><p>Choose the topic you revised and where the notes should live.</p></div></div>
+    <div class="field-grid">
+      <label class="field">
+        <span>SQL topic</span>
+        <input type="text" name="topic" maxlength="120" placeholder="e.g. GROUP BY and aggregate functions" value="{{ topic }}" required>
+      </label>
+      <label class="field">
+        <span>Practice date</span>
+        <input type="date" name="practice_date" value="{{ practice_date }}" required>
+      </label>
+      <label class="field field-full">
+        <span>GitHub repository</span>
+        <select name="repository" required>
+          <option value="">Choose a repository you can write to</option>
+          {% for repo in repositories %}
+          <option value="{{ repo.full_name }}" {% if selected_repository == repo.full_name %}selected{% endif %}>
+            {{ repo.full_name }}
+            {% if not repo.default_branch %}· needs initial commit{% elif repo.private %}· private{% else %}· public{% endif %}
+          </option>
+          {% endfor %}
+        </select>
+        <small>Only repositories where the GitHub App is installed and you can push are listed.</small>
+      </label>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="section-heading"><span class="step">02</span><div><h2>HackerRank questions</h2><p>Add the questions you solved today. Your approach is your own learning note.</p></div></div>
+    <div id="question-list" class="question-list">
+      {% for question in questions %}
+      <fieldset class="question-card">
+        <legend><span class="question-number">Question {{ loop.index }}</span><button class="remove-question button-link" type="button" {% if loop.length == 1 %}disabled{% endif %}>Remove</button></legend>
+        <div class="field-grid">
+          <label class="field"><span>Question title</span><input name="question_title" maxlength="100" placeholder="e.g. Select All" value="{{ question.title }}" required></label>
+          <label class="field"><span>HackerRank URL</span><input name="question_url" type="url" placeholder="https://www.hackerrank.com/challenges/..." value="{{ question.url }}" required></label>
+          <label class="field"><span>Difficulty</span>
+            <select name="difficulty" required>
+              <option value="">Choose difficulty</option>
+              {% for level in difficulties %}
+              <option value="{{ level }}" {% if question.difficulty == level %}selected{% endif %}>{{ level }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label class="field field-full"><span>Intuition / approach</span><textarea name="approach" rows="4" placeholder="Explain how you reasoned through the problem..." required>{{ question.approach }}</textarea></label>
+          <label class="field field-full"><span>Your SQL solution</span><textarea name="solution" rows="6" class="code-input" placeholder="SELECT ..." required>{{ question.solution }}</textarea></label>
+        </div>
+      </fieldset>
+      {% endfor %}
+    </div>
+    <div class="question-actions">
+      <button class="button button-secondary" id="add-question" type="button">+ Add another question</button>
+      <span id="question-count" class="muted"></span>
+    </div>
+  </section>
+
+  <div class="submit-row">
+    <p>Your questions will be committed directly to the selected repository. No local push is needed.</p>
+    <button class="button button-primary" type="submit">Publish practice session</button>
+  </div>
+</form>
+{% elif error %}
+<div class="empty-state panel">
+  <p>Check that the GitHub App is installed on a repository where you have write access, then try again.</p>
+  {% if github_app_slug %}<a class="button button-secondary" href="https://github.com/apps/{{ github_app_slug }}/installations/new">Manage GitHub App installation</a>{% endif %}
+</div>
+{% else %}
+<div class="empty-state panel">
+  <p>No writable repositories are available. Install the GitHub App on a repository you can write to.</p>
+  {% if github_app_slug %}<a class="button button-secondary" href="https://github.com/apps/{{ github_app_slug }}/installations/new">Install GitHub App</a>{% endif %}
+</div>
+{% endif %}
+
+<template id="question-template">
+  <fieldset class="question-card">
+    <legend><span class="question-number"></span><button class="remove-question button-link" type="button">Remove</button></legend>
+    <div class="field-grid">
+      <label class="field"><span>Question title</span><input name="question_title" maxlength="100" placeholder="e.g. Select All" required></label>
+      <label class="field"><span>HackerRank URL</span><input name="question_url" type="url" placeholder="https://www.hackerrank.com/challenges/..." required></label>
+      <label class="field"><span>Difficulty</span><select name="difficulty" required><option value="">Choose difficulty</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+      <label class="field field-full"><span>Intuition / approach</span><textarea name="approach" rows="4" placeholder="Explain how you reasoned through the problem..." required></textarea></label>
+      <label class="field field-full"><span>Your SQL solution</span><textarea name="solution" rows="6" class="code-input" placeholder="SELECT ..." required></textarea></label>
+    </div>
+  </fieldset>
+</template>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/questions.js" defer></script>
+{% endblock %}

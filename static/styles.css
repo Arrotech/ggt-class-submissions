@@ -1,0 +1,546 @@
+:root {
+  color-scheme: light;
+  --ink: #17231d;
+  --muted: #68766e;
+  --line: #e0e7e2;
+  --paper: #f6f8f6;
+  --surface: #fff;
+  --green: #146c43;
+  --green-dark: #0c5031;
+  --green-light: #e7f4eb;
+  --red: #a83333;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+.topbar {
+  height: 68px;
+  padding: 0 max(24px, calc((100% - 1080px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--green);
+  color: white;
+  font: 500 11px "Consolas", monospace;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-label,
+.muted,
+.fine-print,
+small {
+  color: var(--muted);
+}
+
+.user-label {
+  font-size: 13px;
+}
+
+.user-label strong {
+  color: var(--ink);
+}
+
+.page {
+  width: min(100% - 40px, 920px);
+  margin: 48px auto 80px;
+}
+
+.footer {
+  padding: 18px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(30px, 5vw, 43px);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+h2 {
+  margin-bottom: 4px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.lead {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.hero-login {
+  max-width: 700px;
+  margin: 70px auto;
+}
+
+.login-card,
+.success-card,
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 12px 36px #1c33240a;
+}
+
+.login-card {
+  max-width: 440px;
+  margin-top: 30px;
+  padding: 24px;
+}
+
+.fine-print {
+  margin: 16px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.install-link {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: var(--green);
+  color: white;
+}
+
+.button-primary:hover {
+  background: var(--green-dark);
+}
+
+.button-primary svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+.button-secondary {
+  background: white;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.button-secondary:hover,
+.button-quiet:hover {
+  background: var(--green-light);
+  border-color: #b7d9c3;
+}
+
+.button-quiet {
+  min-height: 34px;
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.button-small {
+  padding: 0 11px;
+  font-size: 12px;
+}
+
+.button-wide {
+  width: 100%;
+}
+
+.dashboard-heading {
+  margin-bottom: 28px;
+}
+
+.dashboard-heading .muted {
+  margin-bottom: 0;
+}
+
+.practice-form {
+  display: grid;
+  gap: 18px;
+}
+
+.form-section {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.section-heading {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--green-light);
+  color: var(--green);
+  font: 500 12px "Consolas", monospace;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.field {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+  color: #34433a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 11px;
+  border: 1px solid #d6dfd9;
+  border-radius: 7px;
+  outline: none;
+  background: white;
+  color: var(--ink);
+  font: 400 14px "Segoe UI", Arial, sans-serif;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #58a778;
+  box-shadow: 0 0 0 3px #146c4314;
+}
+
+.field small {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.code-input {
+  font-family: "Consolas", monospace !important;
+  font-size: 12px !important;
+  tab-size: 2;
+}
+
+.question-list {
+  display: grid;
+  gap: 14px;
+}
+
+.question-card {
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.question-card legend {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question-number {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.button-link {
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--red);
+  font: 600 12px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.button-link:disabled {
+  visibility: hidden;
+}
+
+.question-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.question-actions .muted {
+  font-size: 12px;
+}
+
+.submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 6px 2px;
+}
+
+.submit-row p {
+  max-width: 450px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.notice {
+  margin-bottom: 20px;
+  padding: 13px 15px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.notice-error {
+  border-color: #efcaca;
+  background: #fff4f3;
+  color: #8d2929;
+}
+
+.empty-state {
+  padding: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.empty-state p {
+  margin-bottom: 14px;
+}
+
+.panel {
+  padding: 24px;
+}
+
+.success-card {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: clamp(24px, 5vw, 42px);
+}
+
+.success-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 23px;
+}
+
+.success-card h1 {
+  font-size: clamp(28px, 5vw, 38px);
+}
+
+.success-card .muted {
+  line-height: 1.6;
+}
+
+.success-card code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #f1f4f2;
+  font: 12px "Consolas", monospace;
+}
+
+.published-files {
+  margin: 24px 0;
+  border-top: 1px solid var(--line);
+}
+
+.file-link {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 13px 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font: 12px "Consolas", monospace;
+  text-decoration: none;
+}
+
+.file-link:hover {
+  color: var(--green);
+}
+
+.file-link span:nth-child(2) {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.file-icon {
+  padding: 5px;
+  border-radius: 4px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 9px;
+}
+
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    height: 60px;
+    padding: 0 17px;
+  }
+
+  .page {
+    width: min(100% - 28px, 920px);
+    margin-top: 30px;
+  }
+
+  .hero-login {
+    margin: 30px auto;
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  .form-section {
+    padding: 17px;
+  }
+
+  .question-card {
+    padding: 14px;
+  }
+
+  .submit-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .submit-row .button {
+    width: 100%;
+  }
+
+  .user-label {
+    display: none;
+  }
+}
