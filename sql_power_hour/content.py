@@ -20,6 +20,7 @@ class PracticeQuestion:
     difficulty: str
     approach: str
     solution: str
+    reflection: str = ""
 
 
 def validate_hackerrank_url(value: str) -> bool:
@@ -67,7 +68,7 @@ def question_markdown(topic: str, question: PracticeQuestion) -> str:
 
 ## Reflection
 
-<!-- Note what you learned or what you would revisit. -->
+{question.reflection or "<!-- Note what you learned or what you would revisit. -->"}
 """
 
 

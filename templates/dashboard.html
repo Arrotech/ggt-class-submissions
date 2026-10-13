@@ -60,6 +60,7 @@
           </label>
           <label class="field field-full"><span>Intuition / approach</span><textarea name="approach" rows="4" placeholder="Explain how you reasoned through the problem..." required>{{ question.approach }}</textarea></label>
           <label class="field field-full"><span>Your SQL solution</span><textarea name="solution" rows="6" class="code-input" placeholder="SELECT ..." required>{{ question.solution }}</textarea></label>
+          <label class="field field-full"><span>Reflection (optional)</span><textarea name="reflection" rows="3" placeholder="What did you learn, or what would you revisit?">{{ question.reflection }}</textarea></label>
         </div>
       </fieldset>
       {% endfor %}
@@ -96,6 +97,7 @@
       <label class="field"><span>Difficulty</span><select name="difficulty" required><option value="">Choose difficulty</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
       <label class="field field-full"><span>Intuition / approach</span><textarea name="approach" rows="4" placeholder="Explain how you reasoned through the problem..." required></textarea></label>
       <label class="field field-full"><span>Your SQL solution</span><textarea name="solution" rows="6" class="code-input" placeholder="SELECT ..." required></textarea></label>
+      <label class="field field-full"><span>Reflection (optional)</span><textarea name="reflection" rows="3" placeholder="What did you learn, or what would you revisit?"></textarea></label>
     </div>
   </fieldset>
 </template>

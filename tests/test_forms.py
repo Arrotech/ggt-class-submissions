@@ -15,6 +15,7 @@ class FormValidationTests(unittest.TestCase):
                 ("difficulty", "Easy"),
                 ("approach", "Return all columns from the table."),
                 ("solution", "SELECT * FROM CITY;"),
+                ("reflection", "I learned the table name must be explicit."),
             ]
         )
 
@@ -24,6 +25,26 @@ class FormValidationTests(unittest.TestCase):
         self.assertEqual(len(questions), 1)
         self.assertEqual(questions[0].title, "Select All")
         self.assertEqual(questions[0].difficulty, "Easy")
+        self.assertEqual(
+            questions[0].reflection,
+            "I learned the table name must be explicit.",
+        )
+
+    def test_reflection_is_optional(self) -> None:
+        form = FormData(
+            [
+                ("question_title", "Select All"),
+                ("question_url", "https://www.hackerrank.com/challenges/select-all"),
+                ("difficulty", "Easy"),
+                ("approach", "Return all columns from the table."),
+                ("solution", "SELECT * FROM CITY;"),
+            ]
+        )
+
+        questions, errors = parse_questions(form)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(questions[0].reflection, "")
 
     def test_question_with_non_hackerrank_link_is_rejected(self) -> None:
         form = FormData(

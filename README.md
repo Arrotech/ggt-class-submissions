@@ -1,9 +1,9 @@
 # SQL Power Hour
 
 A small web app for recording HackerRank SQL practice. Sign in with GitHub,
-enter the topic and your own approach and solution, then publish a dated set of
-Markdown files directly to a repository. The app also lets you download the
-published files as a ZIP.
+enter the topic and their own approach, solution, and optional reflection, then
+publish a dated set of Markdown files directly to a repository. The app also
+lets you download the published files as a ZIP.
 
 The same FastAPI app runs locally and on Vercel. The command-line template
 generator remains available as a lightweight offline fallback.
@@ -14,7 +14,7 @@ generator remains available as a lightweight offline fallback.
 2. The engineer chooses a repository where the SQL Power Hour GitHub App is
    installed and their GitHub account has write access.
 3. They enter the study topic and one or more HackerRank questions, including
-   difficulty, their own approach, and their SQL solution.
+   difficulty, their own approach, SQL solution, and optional reflection.
 4. The app creates the dated Markdown files and publishes them in one commit.
 5. The app shows links to the commit and offers a ZIP download of those files.
 

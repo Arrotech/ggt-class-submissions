@@ -35,6 +35,7 @@ class QuestionContentTests(unittest.TestCase):
             difficulty="Easy",
             approach="Select every column from the table.",
             solution="SELECT * FROM CITY;",
+            reflection="I learned how the table is structured.",
         )
 
         markdown = question_markdown("SELECT", question)
@@ -44,6 +45,10 @@ class QuestionContentTests(unittest.TestCase):
         self.assertIn("> **HackerRank:** <https://www.hackerrank.com/challenges/select-all>", markdown)
         self.assertIn("## Intuition / Approach", markdown)
         self.assertIn("```sql\nSELECT * FROM CITY;\n```", markdown)
+        self.assertIn(
+            "## Reflection\n\nI learned how the table is structured.",
+            markdown,
+        )
 
     def test_sql_fence_is_longer_than_fences_inside_solution(self) -> None:
         question = PracticeQuestion(

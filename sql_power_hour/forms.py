@@ -19,11 +19,25 @@ MAX_TOPIC_LENGTH = 120
 
 
 def empty_question() -> dict[str, str]:
-    return {"title": "", "url": "", "difficulty": "", "approach": "", "solution": ""}
+    return {
+        "title": "",
+        "url": "",
+        "difficulty": "",
+        "approach": "",
+        "solution": "",
+        "reflection": "",
+    }
 
 
 def question_form_values(form: Any) -> list[dict[str, str]]:
-    keys = ("question_title", "question_url", "difficulty", "approach", "solution")
+    keys = (
+        "question_title",
+        "question_url",
+        "difficulty",
+        "approach",
+        "solution",
+        "reflection",
+    )
     values = {
         key: [value if isinstance(value, str) else "" for value in form.getlist(key)]
         for key in keys
@@ -48,6 +62,11 @@ def question_form_values(form: Any) -> list[dict[str, str]]:
             ),
             "approach": values["approach"][index] if index < len(values["approach"]) else "",
             "solution": values["solution"][index] if index < len(values["solution"]) else "",
+            "reflection": (
+                values["reflection"][index]
+                if index < len(values["reflection"])
+                else ""
+            ),
         }
         for index in range(row_count)
     ]
@@ -55,7 +74,14 @@ def question_form_values(form: Any) -> list[dict[str, str]]:
 
 def parse_questions(form: Any) -> tuple[list[PracticeQuestion], list[str]]:
     questions = []
-    keys = ("question_title", "question_url", "difficulty", "approach", "solution")
+    keys = (
+        "question_title",
+        "question_url",
+        "difficulty",
+        "approach",
+        "solution",
+        "reflection",
+    )
     has_non_text_value = any(
         not isinstance(value, str)
         for key in keys
@@ -68,7 +94,8 @@ def parse_questions(form: Any) -> tuple[list[PracticeQuestion], list[str]]:
         difficulty = values["difficulty"].strip()
         approach = values["approach"].strip()
         solution = values["solution"].strip()
-        if not any((title, url, difficulty, approach, solution)):
+        reflection = values["reflection"].strip()
+        if not any((title, url, difficulty, approach, solution, reflection)):
             errors.append(f"Question {index} is empty.")
             continue
         if not title or len(title) > MAX_TITLE_LENGTH or "\n" in title:
@@ -82,12 +109,17 @@ def parse_questions(form: Any) -> tuple[list[PracticeQuestion], list[str]]:
             errors.append(f"Question {index}: select Easy, Medium, or Hard.")
         if not approach or not solution:
             errors.append(f"Question {index}: approach and SQL solution are required.")
-        if len(approach) > MAX_FIELD_LENGTH or len(solution) > MAX_FIELD_LENGTH:
+        if any(
+            len(value) > MAX_FIELD_LENGTH
+            for value in (approach, solution, reflection)
+        ):
             errors.append(
-                f"Question {index}: approach and SQL solution must each be under "
+                f"Question {index}: approach, SQL solution, and reflection must each be under "
                 f"{MAX_FIELD_LENGTH:,} characters."
             )
-        questions.append(PracticeQuestion(title, url, difficulty, approach, solution))
+        questions.append(
+            PracticeQuestion(title, url, difficulty, approach, solution, reflection)
+        )
 
     if len(questions) > MAX_QUESTIONS:
         errors.append(f"You can publish up to {MAX_QUESTIONS} questions at a time.")
